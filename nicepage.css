@@ -38951,15 +38951,11 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-sheet-1 {
-  min-height: 80px;
-}
-
-.u-header .u-text-1 {
-  margin: 0 auto;
+  min-height: 58px;
 }
 
 .u-header .u-menu-1 {
-  margin: -57px 0 22px auto;
+  margin: 22px 0 0 auto;
 }
 
 .u-header .u-nav-1 {
@@ -38970,11 +38966,7 @@ a.u-link.u-text-hover-grey-90:hover {
 .u-header .u-nav-2 {
   font-size: 1.25rem;
 }
-@media (max-width: 1199px) {
-  .u-header .u-menu-1 {
-    width: auto;
-  }
-}
+
 
 
 
