@@ -13,6 +13,8 @@
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     
     
+    
+    
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
 		"@type": "Organization",
@@ -23,6 +25,7 @@
     <meta property="og:type" content="website">
   </head>
   <body class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-7127"><div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-text u-text-default u-title u-text-1">Macros</h1>
         <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
@@ -49,20 +52,42 @@
       </div></header>
     <section class="u-clearfix u-section-1" id="sec-ed13">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <h1 class="u-text u-text-default u-text-1">Macros<br>
+        <h1 class="u-text u-text-default u-text-1">Contents<br>
         </h1>
+        <ul class="u-text u-text-default u-text-2">
+          <li>
+            <a href="/Macros.html#sec-3fa2" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1">Travel Macros</a>
+          </li>
+          <li>
+            <a href="/Macros.html#sec-f0e3" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-2">Actionbar Macros</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-2" id="sec-3fa2">
+      <div class="u-clearfix u-sheet u-valign-bottom u-sheet-1">
+        <h3 class="u-align-center u-text u-text-default u-text-1">Travel Macros</h3>
         <h4 class="u-text u-text-default u-text-2">AIO Travel: Works in Dragonflight!<br>
         </h4>
-        <h5 class="u-text u-text-default u-text-3">Make sure to replace highlighted values with correct values.</h5>
+        <h6 class="u-text u-text-default u-text-3">Make sure to replace highlighted values with correct values.</h6>
         <blockquote class="u-text u-text-default u-text-4">
           <span style="font-weight: 700;">DRAKE_ID:</span>
           <br>* 1563 - Highland Drake <br> * 1589 - Renewed Proto-Drake <br> * 1590 - Windborn Velocidrake <br> * 1591 - Cliffside Wylderdrake
         </blockquote>
-        <h5 class="u-text u-text-default u-text-5">
+        <h6 class="u-text u-text-default u-text-5">
           <span style="font-weight: 700;">FLYING_MOUNT </span>and <span style="font-weight: 700;">GROUND_MOUNT </span>just replace with the ingame name or the corresponding mount ID value.
-        </h5>
+        </h6>
         <blockquote class="u-text u-text-default u-text-6"> #showtooltip<br> /run if IsUsableSpell(368896) then C_MountJournal.SummonByID(<span style="font-weight: 700;" class="u-text-palette-1-base">DRAKE_ID</span>) end <br>/cast [flyable] <span style="font-weight: 700;" class="u-text-palette-1-base">FLYING_MOUNT</span>; <span style="font-weight: 700;" class="u-text-palette-1-base">GROUND_MOUNT</span>
           <br>/dismount [mounted]
+        </blockquote>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-3" id="sec-f0e3">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h3 class="u-text u-text-default u-text-1">Actionbar Macros</h3>
+        <h4 class="u-text u-text-default u-text-2">Simple skill change based on Talents:</h4>
+        <h6 class="u-text u-text-default u-text-3">Set skill name to correct in-game skill name or skill ID</h6>
+        <blockquote class="u-text u-text-default u-text-4"> #showtooltip<br>/cast [known:<span class="u-text-palette-1-base" style="font-weight: 700;">SKILL_NAME1</span>] <span class="u-text-palette-1-base" style="font-weight: 700;">SKILL_NAME1</span>; [known:<span class="u-text-palette-1-base" style="font-weight: 700;">SKILL_NAME2</span>] <span class="u-text-palette-1-base" style="font-weight: 700;">SKILL_NAME2</span>
         </blockquote>
       </div>
     </section>
