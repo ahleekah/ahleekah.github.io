@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUSIC</title>
+  <title>SKEET</title>
   <style>
     :root {
       --bg: #0f172a;
@@ -87,13 +87,13 @@
 
     .btn {
       background: #334155;
-      border: none;
+      border: 2px solid transparent;
       color: var(--text);
       padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 0.9rem;
-      transition: transform 0.1s ease, background 0.2s ease;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 4px;
@@ -102,6 +102,19 @@
     .btn:active { transform: scale(0.95); }
     .btn-up:hover { background: var(--upvote); }
     .btn-down:hover { background: var(--downvote); }
+
+    /* Active Highlight States */
+    .btn-up.active {
+      background: var(--upvote);
+      border-color: #86efac;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    }
+
+    .btn-down.active {
+      background: var(--downvote);
+      border-color: #fca5a5;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    }
 
     audio {
       width: 100%;
@@ -212,7 +225,7 @@
 <body>
 
   <header>
-    <h1>🎵 Live Ranking</h1>
+    <h1>🎵 WHICH SKEET COMES OUT ON TOP</h1>
   </header>
 
   <div class="container">
@@ -224,8 +237,8 @@
         <div class="track-header">
           <span class="track-title">ALL SKEET SKEET</span>
           <div class="vote-buttons">
-            <button class="btn btn-up" onclick="vote(1, 'up')">👍</button>
-            <button class="btn btn-down" onclick="vote(1, 'down')">👎</button>
+            <button class="btn btn-up" id="btn-1-up" onclick="vote(1, 'up')">👍</button>
+            <button class="btn btn-down" id="btn-1-down" onclick="vote(1, 'down')">👎</button>
           </div>
         </div>
         <audio controls preload="metadata">
@@ -237,8 +250,8 @@
         <div class="track-header">
           <span class="track-title">HAVE EVER SEEN SKEET</span>
           <div class="vote-buttons">
-            <button class="btn btn-up" onclick="vote(2, 'up')">👍</button>
-            <button class="btn btn-down" onclick="vote(2, 'down')">👎</button>
+            <button class="btn btn-up" id="btn-2-up" onclick="vote(2, 'up')">👍</button>
+            <button class="btn btn-down" id="btn-2-down" onclick="vote(2, 'down')">👎</button>
           </div>
         </div>
         <audio controls preload="metadata">
@@ -250,8 +263,8 @@
         <div class="track-header">
           <span class="track-title">SKEEETT SKEEET (FREE BALLIN)</span>
           <div class="vote-buttons">
-            <button class="btn btn-up" onclick="vote(3, 'up')">👍</button>
-            <button class="btn btn-down" onclick="vote(3, 'down')">👎</button>
+            <button class="btn btn-up" id="btn-3-up" onclick="vote(3, 'up')">👍</button>
+            <button class="btn btn-down" id="btn-3-down" onclick="vote(3, 'down')">👎</button>
           </div>
         </div>
         <audio controls preload="metadata">
@@ -263,8 +276,8 @@
         <div class="track-header">
           <span class="track-title">SKEET SKEET</span>
           <div class="vote-buttons">
-            <button class="btn btn-up" onclick="vote(4, 'up')">👍</button>
-            <button class="btn btn-down" onclick="vote(4, 'down')">👎</button>
+            <button class="btn btn-up" id="btn-4-up" onclick="vote(4, 'up')">👍</button>
+            <button class="btn btn-down" id="btn-4-down" onclick="vote(4, 'down')">👎</button>
           </div>
         </div>
         <audio controls preload="metadata">
@@ -276,8 +289,8 @@
         <div class="track-header">
           <span class="track-title">UNDA DA SKEET</span>
           <div class="vote-buttons">
-            <button class="btn btn-up" onclick="vote(5, 'up')">👍</button>
-            <button class="btn btn-down" onclick="vote(5, 'down')">👎</button>
+            <button class="btn btn-up" id="btn-5-up" onclick="vote(5, 'up')">👍</button>
+            <button class="btn btn-down" id="btn-5-down" onclick="vote(5, 'down')">👎</button>
           </div>
         </div>
         <audio controls preload="metadata">
@@ -342,12 +355,42 @@
       5: { title: 'UNDA DA SKEET', score: 0 }
     };
 
+    // Click tracking for Jim auto-clicker detection
+    let clickTimestamps = [];
+
     function getPreviousVote(id) {
       return localStorage.getItem('voted_type_track_' + id);
     }
 
     function setVoteType(id, type) {
-      localStorage.setItem('voted_type_track_' + id, type);
+      if (type) {
+        localStorage.setItem('voted_type_track_' + id, type);
+      } else {
+        localStorage.removeItem('voted_type_track_' + id);
+      }
+      updateButtonUI(id, type);
+    }
+
+    // Highlighting current user votes
+    function updateButtonUI(id, currentVote) {
+      const upBtn = document.getElementById(`btn-${id}-up`);
+      const downBtn = document.getElementById(`btn-${id}-down`);
+
+      if (!upBtn || !downBtn) return;
+
+      upBtn.classList.remove('active');
+      downBtn.classList.remove('active');
+
+      if (currentVote === 'up') {
+        upBtn.classList.add('active');
+      } else if (currentVote === 'down') {
+        downBtn.classList.add('active');
+      }
+    }
+
+    // Initialize UI on page load
+    for (let id = 1; id <= 5; id++) {
+      updateButtonUI(id, getPreviousVote(id));
     }
 
     window.closeModal = function() {
@@ -355,31 +398,41 @@
     };
 
     window.vote = function(id, newVoteType) {
-      const currentVote = getPreviousVote(id);
+      const now = Date.now();
+      
+      // Keep track of clicks in the last 2 seconds
+      clickTimestamps.push(now);
+      clickTimestamps = clickTimestamps.filter(t => now - t < 2000);
 
-      // Trigger Jim modal if trying to vote the exact same direction twice (e.g. auto clicker spam)
-      if (currentVote === newVoteType) {
+      // Trigger Jim modal if clicking more than 4 times within 2 seconds
+      if (clickTimestamps.length > 4) {
         document.getElementById('jimModal').classList.add('active');
         return;
       }
 
-      // Calculate score shift
+      const currentVote = getPreviousVote(id);
       let change = 0;
+      let nextVoteState = newVoteType;
+
       if (!currentVote) {
-        // First vote ever on this track
-        change = newVoteType === 'up' ? 1 : -1;
+        // Vote for the first time
+        change = (newVoteType === 'up') ? 1 : -1;
+      } else if (currentVote === newVoteType) {
+        // Reset / Clear vote by clicking active button again
+        change = (newVoteType === 'up') ? -1 : 1;
+        nextVoteState = null;
       } else if (currentVote === 'up' && newVoteType === 'down') {
-        // Changing from upvote to downvote (-2 shift)
+        // Shift from upvote to downvote (-2 net change)
         change = -2;
       } else if (currentVote === 'down' && newVoteType === 'up') {
-        // Changing from downvote to upvote (+2 shift)
+        // Shift from downvote to upvote (+2 net change)
         change = 2;
       }
 
-      // Save new vote state locally
-      setVoteType(id, newVoteType);
+      // Save new state & update button visual highlight
+      setVoteType(id, nextVoteState);
 
-      // Send calculated change to Firebase
+      // Update Firebase live database
       const trackRef = ref(db, 'tracks/' + id);
       runTransaction(trackRef, (track) => {
         if (!track) {
@@ -390,11 +443,16 @@
       });
     };
 
+    // Listen for live database updates
     const tracksRef = ref(db, 'tracks');
     onValue(tracksRef, (snapshot) => {
       const data = snapshot.val() || defaultTracks;
       
-      const trackList = Object.keys(data).map(id => ({ id, ...data[id] }));
+      const trackList = Object.keys(defaultTracks).map(id => {
+        const liveTrack = data[id] || defaultTracks[id];
+        return { id, title: defaultTracks[id].title, score: liveTrack.score || 0 };
+      });
+
       trackList.sort((a, b) => b.score - a.score);
 
       const tbody = document.getElementById('leaderboard');
