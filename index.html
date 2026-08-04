@@ -246,7 +246,7 @@
   </div>
 
   <script>
-    const tracks = [
+    const defaultTracks = [
       { id: 1, title: 'ALL SKEET SKEET', score: 0 },
       { id: 2, title: 'HAVE EVER SEEN SKEET', score: 0 },
       { id: 3, title: 'SKEEETT SKEEET (FREE BALLIN)', score: 0 },
@@ -254,10 +254,17 @@
       { id: 5, title: 'UNDA DA SKEET', score: 0 }
     ];
 
+    // Load saved tracks from localStorage or use default list
+    let tracks = JSON.parse(localStorage.getItem('music_demo_scores')) || defaultTracks;
+
     function vote(id, change) {
       const track = tracks.find(t => t.id === id);
       if (track) {
         track.score += change;
+        
+        // Save updated scores array to browser storage
+        localStorage.setItem('music_demo_scores', JSON.stringify(tracks));
+        
         renderLeaderboard();
       }
     }
@@ -276,7 +283,7 @@
       `).join('');
     }
 
-    // Initial render
+    // Initial render on page load
     renderLeaderboard();
   </script>
 
